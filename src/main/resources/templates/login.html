@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+  <style>
+  @-webkit-keyframes autofill {
+    0%,100% {
+        color: inherit;
+        background: transparent;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-delay: 1s; /* Safari support - any positive time runs instantly */
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+}
+  </style>
+
+</head>
+<body>
+  <div id="app">
+    <v-app>
+      <v-main>
+        <v-container>
+        	<v-row class="mt-10" justify="center">
+        		<v-col cols="12" sm="10" md="8" lg="6">
+        			<v-form v-model="valid" ref="form">
+	        			<v-card>
+	        				<v-card-text>
+	        					<v-text-field
+	        						v-model="email"
+	        						type="text"
+	        						label="E-mail"
+	        						outlined
+	        						prepend-icon="mdi-account"
+	        						:rules="emailRules"
+	        						required
+	        					></v-text-field>
+					        	<v-text-field
+					        		v-model="password"
+					        		:type="show ? 'text' : 'password'"
+					        		label="Password"
+					        		outlined
+					        		prepend-icon="mdi-lock"
+					        		:append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+					        		:rules="passwordRules"
+					        		required
+					        		@click:append="show = !show">
+					        	</v-text-field>
+	        				</v-card-text>
+	        				<v-card-actions>
+	        					<v-btn text>Cancel</v-btn>
+	        				</v-card-actions>
+	        			</v-card>
+        			</v-form>
+        		</v-col>
+        	</v-row>   	
+        </v-container>
+      </v-main>
+    </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script>
+    var loginForm = new Vue({
+      el: '#app',
+      data () {
+		return {
+			valid: false,
+			show: false,
+			autofill: false,
+			email: ' ',
+			emailRules: [
+				(v) => !!v || 'E-mail is required',
+				(v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+			],
+			password: '',
+			passwordRules: [
+				(v) => !!v || 'Password is required'
+			],
+		}
+	  },
+      vuetify: new Vuetify(),
+    })
+  </script>
+</body>
+</html>
