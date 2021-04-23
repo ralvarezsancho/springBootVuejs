@@ -25,6 +25,11 @@ input:-webkit-autofill {
 <body>
   <div id="app">
     <v-app>
+      
+      <v-toolbar color="blue lighten-1" dark>
+      	<v-app-bar-nav-icon></v-app-bar-nav-icon>
+      </v-toolbar>
+  
       <v-main>
         <v-container>
         	<v-row class="mt-10" justify="center">
@@ -32,7 +37,7 @@ input:-webkit-autofill {
         			<v-form v-model="valid" ref="form">
 	        			<v-card>
 	        				<v-card-text>
-	        					<v-text-field
+	        					<v-text-field class="mt-5"
 	        						v-model="email"
 	        						type="text"
 	        						label="E-mail"
@@ -41,7 +46,7 @@ input:-webkit-autofill {
 	        						:rules="emailRules"
 	        						required
 	        					></v-text-field>
-					        	<v-text-field
+					        	<v-text-field class="mt-3"
 					        		v-model="password"
 					        		:type="show ? 'text' : 'password'"
 					        		label="Password"
@@ -53,8 +58,8 @@ input:-webkit-autofill {
 					        		@click:append="show = !show">
 					        	</v-text-field>
 	        				</v-card-text>
-	        				<v-card-actions>
-	        					<v-btn text>Cancel</v-btn>
+	        				<v-card-actions class="d-flex justify-end">
+	        					<v-btn class="mr-2 mb-2" elevation="4" large>Login</v-btn>
 	        				</v-card-actions>
 	        			</v-card>
         			</v-form>
@@ -62,6 +67,22 @@ input:-webkit-autofill {
         	</v-row>   	
         </v-container>
       </v-main>
+      
+    
+      	<v-footer :padless="padless">
+      		<v-card flat tile width="100%" class="blue lighten-1 white--text text-center">
+      			<v-card-text>
+      				<v-btn v-for="icon in icons" :key="icon" class="mx-4 white--text" icon>
+      					<v-icon size="24px">{{ icon }}</v-icon>
+      				</v-btn>
+      			</v-card-text>
+      			<v-card-text class="white--text">
+      				{{ new Date().getFullYear() }} - <strong>ras</strong>
+      			</v-card-text>
+      		</v-card>
+      	</v-footer>
+
+      
     </v-app>
   </div>
 
@@ -72,6 +93,12 @@ input:-webkit-autofill {
       el: '#app',
       data () {
 		return {
+			icons: [
+				'mdi-facebook',
+				'mdi-twitter',
+				'mdi-instagram',
+				'mdi-linkedin'
+			],
 			valid: false,
 			show: false,
 			autofill: false,
@@ -84,6 +111,7 @@ input:-webkit-autofill {
 			passwordRules: [
 				(v) => !!v || 'Password is required'
 			],
+			padless: true
 		}
 	  },
       vuetify: new Vuetify(),
